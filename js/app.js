@@ -1,6 +1,6 @@
 /**
  * Script Principal - Projeto Manicure Cristiane Oliveira
- * Contém lógica para Carrossel, Dark Mode e Validação de Formulário
+ * Contém lógica para Carrossel, Dark Mode, Validação de Formulário e Menu Mobile
  */
 
 // --- 1. CONFIGURAÇÃO DO CARROSSEL (EFEITO INTERATIVO 1) ---
@@ -104,14 +104,13 @@ if (contactForm) {
     });
 }
 
-// --- 4. MENU MOBILE (MELHORIA DE USABILIDADE) ---
+// --- 4. MENU MOBILE (MENU HAMBÚRGUER) ---
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelector('.nav-links');
 
 if (mobileMenu && navLinks) {
     mobileMenu.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        // Animação das barras do menu hambúrguer
-        mobileMenu.classList.toggle('open');
+        navLinks.classList.toggle('active'); // Ativa/desativa a visibilidade do menu
+        mobileMenu.classList.toggle('open'); // Ativa/desativa a animação do ícone
     });
 }

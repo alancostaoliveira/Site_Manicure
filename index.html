@@ -16,7 +16,7 @@
 
   <link rel="stylesheet" href="css/style.css">
 
-  <link rel="icon" href= /favicon.ico sizes="any">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
 
@@ -29,18 +29,22 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <h1>Manicure <span> Cristiane</span></h1>
+        <h1>Manicure <span>Cristiane</span></h1>
       </div>
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="index.html" class="active">Início</a></li>
         <li><a href="sobre.html">Sobre</a></li>
         <li><a href="servicos.html">Serviços</a></li>
         <li><a href="contato.html">Contato</a></li>
       </ul>
-      <div class="header-actions">
-        <button id="dark-mode-toggle" aria-label="Alternar modo escuro">
-          <span class="icon">🌙</span>
-        </button>
+      <!-- Botão Dark Mode e Menu Toggle agora são irmãos diretos da navbar -->
+      <button id="dark-mode-toggle" aria-label="Alternar modo escuro">
+        <span class="icon">🌙</span>
+      </button>
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </div>
     </nav>
   </header>

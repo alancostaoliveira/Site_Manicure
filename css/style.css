@@ -64,6 +64,7 @@ header {
   padding: 1rem 5%;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative; /* Necessário para posicionamento absoluto do nav-links em mobile */
 }
 
 .logo h1 {
@@ -91,6 +92,33 @@ header {
 
 .nav-links li a:hover, .nav-links li a.active {
   color: var(--primary-dark);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Espaçamento entre o botão dark mode e o menu toggle */
+}
+
+#dark-mode-toggle {
+  background: none;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+
+/* Novo contêiner para agrupar ações da direita em mobile */
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* 4. COMPONENTES INTERATIVOS (CARROSSEL) */
@@ -279,18 +307,95 @@ footer {
 .hidden { display: none; }
 
 /* 8. MEDIA QUERIES (RESPONSIVIDADE) */
+/* Menu Hambúrguer */
+.menu-toggle {
+  display: none; /* Escondido por padrão em telas maiores */
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001; /* Acima de outros elementos */
+  padding: 5px; /* Adicionado padding para facilitar o clique */
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color);
+  margin: 4px 0;
+  transition: var(--transition);
+}
+
+/* Animação do ícone do hambúrguer para 'X' */
+.menu-toggle.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 @media (max-width: 768px) {
-  .navbar { flex-direction: column; gap: 1rem; }
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinha itens ao topo para o menu descer corretamente */
+  }
+
+  .nav-links {
+    display: none; /* Esconde o menu por padrão em mobile */
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--white); /* Fundo do menu mobile */
+    position: absolute;
+    top: 100%; /* Abaixo do header */
+    left: 0;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+    z-index: 998; /* Abaixo do menu-toggle e dark-mode-toggle */
+  }
+
+  body.dark-mode .nav-links {
+    background-color: #222;
+    border-top: 1px solid #333;
+  }
+
+  .nav-links.active {
+    display: flex; /* Mostra o menu quando ativo */
+  }
+
+  .nav-links li {
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  .nav-links li a {
+    padding: 1rem;
+    display: block;
+  }
+
+  .menu-toggle {
+    display: flex; /* Mostra o ícone do hambúrguer em mobile */
+  }
+
+  /* Ajustes para o novo contêiner de ações da direita */
+  .nav-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .about-section { grid-template-columns: 1fr; }
   .carousel-container { height: 300px; }
   .slide-text { font-size: 1.2rem; left: 5%; bottom: 10%; }
 
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-    display: none; /* Pode ser controlado via JS para menu hambúrguer */
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    bottom: 90px; /* Ajuste para não conflitar com o VLibras */
+    right: 15px;
   }
-
-  .nav-links.active { display: flex; }
 }
