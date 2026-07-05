@@ -126,19 +126,23 @@ header {
   position: relative;
   max-width: 100%;
   overflow: hidden;
-  height: 450px;
+  height: 350px;
   background-color: #eee;
 }
 
 .slide {
   display: none;
   height: 100%;
+  position: relative;
+  background-color: #eee;
 }
 
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 
 .slide-text {
@@ -389,7 +393,7 @@ footer {
   }
 
   .about-section { grid-template-columns: 1fr; }
-  .carousel-container { height: 300px; }
+  .carousel-container { height: 220px; }
   .slide-text { font-size: 1.2rem; left: 5%; bottom: 10%; }
 
   .whatsapp-float {
