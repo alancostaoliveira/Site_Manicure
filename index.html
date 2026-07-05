@@ -51,23 +51,24 @@
 
   <main>
     <!-- Carrossel de Imagens Locais -->
-    <section class="carousel-container">
-      <div class="carousel-slide">
-        <div class="slide fade">
+    <section class="carousel-container" aria-roledescription="carousel">
+      <div class="carousel-slide" role="list">
+        <div class="slide fade" role="listitem">
           <img src="img/unha_mao (5).jpeg" alt="Manicure profissional - Unha 1">
           <div class="slide-text">Unhas Perfeitas para você</div>
         </div>
-        <div class="slide fade">
+        <div class="slide fade" role="listitem">
           <img src="img/unha_mao (6).jpeg" alt="Unhas em gel - Unha 2">
           <div class="slide-text">Especialista em Unhas em Gel</div>
         </div>
-        <div class="slide fade">
+        <div class="slide fade" role="listitem">
           <img src="img/unha_mao (7).jpeg" alt="Estética e Cuidado - Unha 3">
           <div class="slide-text">Beleza e Bem-estar</div>
         </div>
       </div>
-      <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-      <a class="next" onclick="changeSlide(1)">&#10095;</a>
+      <div class="carousel-dots" aria-hidden="false"></div>
+      <a class="prev" onclick="changeSlide(-1)" aria-label="Slide anterior">&#10094;</a>
+      <a class="next" onclick="changeSlide(1)" aria-label="Próximo slide">&#10095;</a>
     </section>
 
     <section class="welcome">

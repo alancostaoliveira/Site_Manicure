@@ -4,22 +4,161 @@
  */
 
 // --- 1. CONFIGURAÇÃO DO CARROSSEL (EFEITO INTERATIVO 1) ---
-const slides = document.getElementsByClassName("slide");
+let carouselTrack = null;
+let prevBtn = null;
+let nextBtn = null;
+let slides = [];
+let slideGap = 0;
+let autoplayInterval = 4000; // ms
+let autoplayTimer = null;
+let resumeTimer = null;
+let isPaused = false;
+let currentIndex = 0;
 
-if (slides.length > 0) {
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = i === 0 ? "block" : "none";
+function initCarousel() {
+    carouselTrack = document.querySelector('.carousel-slide');
+    prevBtn = document.querySelector('.prev');
+    nextBtn = document.querySelector('.next');
+    if (!carouselTrack) return;
+
+    slides = Array.from(carouselTrack.querySelectorAll('.slide'));
+    const trackStyles = window.getComputedStyle(carouselTrack);
+    slideGap = parseFloat(trackStyles.gap || '0');
+
+    createDots();
+    carouselTrack.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', () => createDots());
+
+    // Prev/Next buttons pause autoplay briefly
+    if (prevBtn) prevBtn.addEventListener('click', () => { pauseAutoplay(); changeSlide(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { pauseAutoplay(); changeSlide(1); });
+
+    // Touch / Swipe support
+    let startX = 0;
+    let isTouch = false;
+    carouselTrack.addEventListener('touchstart', (e) => {
+        isTouch = true;
+        startX = e.touches[0].clientX;
+        pauseAutoplay();
+    }, {passive: true});
+
+    carouselTrack.addEventListener('touchend', (e) => {
+        if (!isTouch) return;
+        const endX = (e.changedTouches && e.changedTouches[0].clientX) || 0;
+        const diff = startX - endX;
+        const threshold = 40; // px
+        if (Math.abs(diff) > threshold) {
+            changeSlide(Math.sign(diff));
+        }
+        isTouch = false;
+        resumeAutoplay(2000);
+    });
+
+    // Mouse hover/focus pause
+    carouselTrack.addEventListener('mouseenter', pauseAutoplay);
+    carouselTrack.addEventListener('mouseleave', () => resumeAutoplay(500));
+    carouselTrack.addEventListener('focusin', pauseAutoplay);
+    carouselTrack.addEventListener('focusout', () => resumeAutoplay(500));
+
+    // Pause when document hidden
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pauseAutoplay(); else resumeAutoplay(500);
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { pauseAutoplay(); changeSlide(-1); }
+        if (e.key === 'ArrowRight') { pauseAutoplay(); changeSlide(1); }
+    });
+
+    // Ensure starting position and dots
+    currentIndex = 0;
+    setIndex(0);
+
+    // Start autoplay if multiple slides
+    startAutoplay();
+}
+
+function changeSlide(direction) {
+    // direction: 1 or -1
+    if (!carouselTrack || slides.length === 0) return;
+    const next = (currentIndex + direction + slides.length) % slides.length;
+    setIndex(next);
+}
+
+function setIndex(idx) {
+    if (!carouselTrack || slides.length === 0) return;
+    currentIndex = Math.max(0, Math.min(idx, slides.length - 1));
+    const left = currentIndex * (slides[0].clientWidth + slideGap);
+    carouselTrack.scrollTo({ left, behavior: 'smooth' });
+    updateActiveDot();
+}
+
+function startAutoplay() {
+    if (autoplayTimer || isPaused || slides.length <= 1) return;
+    autoplayTimer = setInterval(() => {
+        changeSlide(1);
+    }, autoplayInterval);
+}
+
+function pauseAutoplay() {
+    isPaused = true;
+    if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
     }
-
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    if (prevButton) prevButton.style.display = "none";
-    if (nextButton) nextButton.style.display = "none";
+    if (resumeTimer) {
+        clearTimeout(resumeTimer);
+        resumeTimer = null;
+    }
 }
 
-function changeSlide() {
-    // Carrossel fixo no primeiro slide.
+function resumeAutoplay(delay = 1000) {
+    isPaused = false;
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+        startAutoplay();
+    }, delay);
 }
+
+function createDots() {
+    const dotsContainer = document.querySelector('.carousel-dots');
+    if (!dotsContainer || slides.length === 0) return;
+    // Rebuild dots to account for size changes
+    dotsContainer.innerHTML = '';
+    slides.forEach((s, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'dot';
+        btn.setAttribute('aria-label', `Ir para slide ${idx + 1}`);
+        btn.addEventListener('click', () => {
+            pauseAutoplay();
+            setIndex(idx);
+            resumeAutoplay(3000);
+        });
+        dotsContainer.appendChild(btn);
+    });
+    updateActiveDot();
+}
+
+let scrollTimer = null;
+function onScroll() {
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+        if (!carouselTrack || slides.length === 0) return;
+        const step = slides[0].clientWidth + slideGap;
+        const nearest = Math.round(carouselTrack.scrollLeft / step);
+        currentIndex = Math.max(0, Math.min(nearest, slides.length - 1));
+        updateActiveDot();
+    }, 80);
+}
+
+function updateActiveDot() {
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    if (!dots.length || !carouselTrack) return;
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+}
+
+window.addEventListener('DOMContentLoaded', initCarousel);
 
 // --- 2. DARK MODE TOGGLE (EFEITO INTERATIVO 2) ---
 const darkModeToggle = document.getElementById('dark-mode-toggle');
