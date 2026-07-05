@@ -4,26 +4,21 @@
  */
 
 // --- 1. CONFIGURAÇÃO DO CARROSSEL (EFEITO INTERATIVO 1) ---
-let slideIndex = 1;
 const slides = document.getElementsByClassName("slide");
 
 if (slides.length > 0) {
-    showSlides(slideIndex);
-    // Transição automática a cada 5 segundos
-    setInterval(() => changeSlide(1), 5000);
-}
-
-function changeSlide(n) {
-    showSlides(slideIndex += n);
-}
-
-function showSlides(n) {
-    if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length;
     for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].style.display = i === 0 ? "block" : "none";
     }
-    slides[slideIndex - 1].style.display = "block";
+
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    if (prevButton) prevButton.style.display = "none";
+    if (nextButton) nextButton.style.display = "none";
+}
+
+function changeSlide() {
+    // Carrossel fixo no primeiro slide.
 }
 
 // --- 2. DARK MODE TOGGLE (EFEITO INTERATIVO 2) ---
