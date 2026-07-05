@@ -1,0 +1,100 @@
+<!doctype html>
+<html class="no-js" lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manicure & Estética | Cristiane Oliveira</title>
+  <meta name="description" content="Serviços profissionais de manicure, unhas em gel e estética. Agende seu horário e realce sua beleza.">
+  <meta name="keywords" content="manicure, unhas em gel, estética, beleza, unhas, pedicure">
+  <meta name="author" content="Alan Costa de Oliveira">
+
+  <!-- Open Graph para SEO -->
+  <meta property="og:title" content="Manicure & Estética | Profissionalismo e Beleza">
+  <meta property="og:description" content="Confira nossos serviços de manicure e estética.">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="icon" href= /favicon.ico sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#f8bbd0">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <h1>Manicure <span> Cristiane</span></h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+      <div class="header-actions">
+        <button id="dark-mode-toggle" aria-label="Alternar modo escuro">
+          <span class="icon">🌙</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Carrossel de Imagens Locais -->
+    <section class="carousel-container">
+      <div class="carousel-slide">
+        <div class="slide fade">
+          <img src="img/unha_mao (5).jpeg" alt="Manicure profissional - Unha 1">
+          <div class="slide-text">Unhas Perfeitas para você</div>
+        </div>
+        <div class="slide fade">
+          <img src="img/unha_mao (6).jpeg" alt="Unhas em gel - Unha 2">
+          <div class="slide-text">Especialista em Unhas em Gel</div>
+        </div>
+        <div class="slide fade">
+          <img src="img/unha_mao (7).jpeg" alt="Estética e Cuidado - Unha 3">
+          <div class="slide-text">Beleza e Bem-estar</div>
+        </div>
+      </div>
+      <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+      <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </section>
+
+    <section class="welcome">
+      <h2>Bem-vinda ao seu momento de beleza</h2>
+      <p>Com Cristiane Oliveira, oferecemos o que há de melhor em estética e cuidado com as mãos.</p>
+      <a href="servicos.html" class="btn-primary">Ver Serviços</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Manicure Cristiane - Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://api.whatsapp.com/send?phone=5511981999922&text=Olá,%20gostaria%20de%20agendar%20um%20horário%20com%20a%20Cristiane!" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+
+  <!-- VLibras Widget -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>

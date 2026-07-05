@@ -1,0 +1,296 @@
+/*
+   CSS Principal - Projeto Manicure Cristiane Oliveira
+   Organizado por seções seguindo boas práticas de Front-End
+*/
+
+/* 1. VARIÁVEIS E CONFIGURAÇÕES GERAIS */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary-color: #f8bbd0;
+  --primary-light: #ffeeff;
+  --primary-dark: #c48b9f;
+  --text-color: #333;
+  --bg-color: #fff;
+  --footer-bg: #fce4ec;
+  --white: #ffffff;
+  --error-color: #d32f2f;
+  --transition: all 0.3s ease;
+}
+
+/* 2. TEMAS (DARK MODE) */
+body.dark-mode {
+  --text-color: #f1f1f1;
+  --bg-color: #1a1a1a;
+  --primary-color: #ad1457;
+  --primary-light: #4a148c;
+  --footer-bg: #121212;
+  --white: #222;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  transition: var(--transition);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 5%;
+}
+
+/* 3. CABEÇALHO E NAVEGAÇÃO */
+header {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-dark);
+}
+
+.logo span {
+  font-weight: 300;
+  color: var(--text-color);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.nav-links li a:hover, .nav-links li a.active {
+  color: var(--primary-dark);
+}
+
+/* 4. COMPONENTES INTERATIVOS (CARROSSEL) */
+.carousel-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 450px;
+  background-color: #eee;
+}
+
+.slide {
+  display: none;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-text {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  background: rgba(248, 187, 208, 0.8);
+  color: #fff;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  font-family: 'Playfair Display', serif;
+  border-radius: 5px;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  margin: 0 10px;
+  user-select: none;
+  z-index: 10;
+}
+
+.next { right: 0; }
+
+.fade {
+  animation: fadeAnim 1.5s;
+}
+
+@keyframes fadeAnim {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+/* 5. SEÇÕES DE CONTEÚDO */
+.welcome, .about-section, .services-list, .contact-section {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  text-align: left;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.service-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  border-bottom: 4px solid var(--primary-color);
+}
+
+/* 6. FORMULÁRIO E BOTÕES */
+.contact-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: left;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+  background-color: var(--white);
+  color: var(--text-color);
+}
+
+.error-msg {
+  color: var(--error-color);
+  font-size: 0.8rem;
+  height: 1rem;
+  display: block;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--primary-dark);
+  color: white;
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+/* 7. WIDGETS E RODAPÉ */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 100px;
+  right: 20px;
+  background-color: #25d366;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+footer {
+  background-color: var(--footer-bg);
+  text-align: center;
+  padding: 2rem;
+  font-weight: 300;
+}
+
+.hidden { display: none; }
+
+/* 8. MEDIA QUERIES (RESPONSIVIDADE) */
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; gap: 1rem; }
+  .about-section { grid-template-columns: 1fr; }
+  .carousel-container { height: 300px; }
+  .slide-text { font-size: 1.2rem; left: 5%; bottom: 10%; }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    display: none; /* Pode ser controlado via JS para menu hambúrguer */
+  }
+
+  .nav-links.active { display: flex; }
+}
